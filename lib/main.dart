@@ -147,6 +147,7 @@ class HomeState extends State<Home> {
             rotateGesturesEnabled: false,
             tiltGesturesEnabled: false,
             initialCameraPosition: _pos,
+            minMaxZoomPreference: MinMaxZoomPreference(3, 17),
             markers: _buildMarkers(snapshot.data),
             onMapCreated: (c) async {
               await PermissionHandler().requestPermissions([PermissionGroup.location]);
