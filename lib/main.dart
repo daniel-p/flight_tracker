@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -97,7 +99,7 @@ class HomeState extends State<Home> {
       for (var v in res.vectors) {
         markers.add(Marker(
           markerId: MarkerId(v.id),
-          icon: BitmapDescriptor.fromAsset("m.png"),
+          icon: BitmapDescriptor.fromAsset(Platform.isIOS ? "m1.png" : "m.png"),
           infoWindow: InfoWindow(
             title: v.name,
             snippet: "${(v.alt * 3.28084).round()}ft ${(v.speed * 1.94384).round()}kn",
@@ -137,6 +139,7 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     return SafeArea(
       child: StreamBuilder(
         stream: _ctrl.stream,
